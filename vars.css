@@ -1,0 +1,36 @@
+:root {
+  /* ЦВЕТА */
+  --black: #0e0e0e;
+  --purple: #ae52e7;
+  --text-2: #808080;
+  --white: #ffffff;
+  --pink: #ff4bd5;
+
+  --bg-color: var(--black);
+
+  /* скругление */
+  --border-radius: 18px;
+  --border-radius-top: 8px;
+  --gap-L: 32px;
+  --gap-M: 16px;
+  --gap-S: 12px;
+  --gap-XS: 8px;
+
+  --top-space-height: 34px;
+}
+
+/* стили по умолчанию */
+p,
+a,
+h1,
+h2 {
+  color: var(--white);
+  text-align: center;
+}
+
+/* Базовые стили для сброса отступов */
+body,
+html {
+  font-family: "Manrope", sans-serif;
+  background-color: var(--bg-color);
+}

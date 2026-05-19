@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>18 Экранов</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="vars.css" />
+    <link rel="stylesheet" href="typography.css" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="top-space"></div>
+    <!-- <div class="bottom-space">
+      <button class="A_Button button">Yes</button>
+    </div> -->
+    <div id="screen-1" class="screen">
+      <div class="Main-container Main-container-S">
+        <div class="M_Header">
+          <h1>Create your Perfect AI Girl in 60 seconds</h1>
+          <p class="A_Subtitle subtitle">Choose Style of Your Girlfriend</p>
+        </div>
+        <div class="C_Cards">
+          <div class="M_CardAndLabel" onclick="selectStyle('real', this)">
+            <div class="A_Card">
+              <video
+                class="A_CardVideo"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="metadata"
+              >
+                <source src="src/video/option_real.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="option">Real</p>
+          </div>
+          <div class="M_CardAndLabel" onclick="selectStyle('anime', this)">
+            <div class="A_Card">
+              <video
+                class="A_CardVideo"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="metadata"
+              >
+                <source src="src/video/option_anime.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="option">Anime</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-2" class="screen">
+      <div class="Main-container Main-container-S">
+        <h1>Choose Ethnicity</h1>
+        <div id="ethnicity-container" class="G_Cards"></div>
+      </div>
+    </div>
+
+    <div id="screen-3" class="screen">
+      <div class="Main-container Main-container-L">
+        <h1>Choose her voice</h1>
+        <div id="voice-container" class="C_LongCards"></div>
+        <!-- <div class="C_LongCards">
+          <div class="M_LongCard M_LongCard--voice">
+            <p class="option">Sweet & Innocent</p>
+            <button class="A_PlayVoiceButton"></button>
+          </div>
+          <div class="M_LongCard M_LongCard--voice">
+            <p class="option">Raspy & Dominant</p>
+            <button class="A_PlayVoiceButton"></button>
+          </div>
+          <div class="M_LongCard M_LongCard--voice">
+            <p class="option">ASMR Whisper</p>
+            <button class="A_PlayVoiceButton"></button>
+          </div>
+          <div class="M_LongCard M_LongCard--voice">
+            <p class="option">Playful Tease</p>
+            <button class="A_PlayVoiceButton"></button>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+    <div id="screen-4" class="screen">
+      <div class="Main-container Main-container-S">
+        <h1>Choose Body Type</h1>
+        <div id="body-container" class="G_Cards"></div>
+      </div>
+    </div>
+
+    <div id="screen-5" class="screen">
+      <div class="Main-container">
+        <div class="video-layer">
+          <video id="body-video" autoplay loop muted playsinline></video>
+          <div class="video-gradient"></div>
+        </div>
+        <div class="bottom-space">
+          <h1>Do you want me to send you Hot Videos?</h1>
+          <button onclick="goToScreen(6)" class="A_Button button">Yes</button>
+          <button class="subtitle" onclick="goToScreen(6)">No thanks</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-6" class="screen">
+      <div class="Main-container Main-container-S">
+        <h1>Choose her Breasts</h1>
+        <div id="breast-container" class="G_Cards"></div>
+      </div>
+    </div>
+
+    <div id="screen-7" class="screen">
+      <div class="Main-container">
+        <div class="video-layer">
+          <video id="breast-video" autoplay loop muted playsinline></video>
+          <div class="video-gradient"></div>
+        </div>
+        <div class="bottom-space">
+          <h1>Do you want me to send you Uncensored Selfies?</h1>
+          <button onclick="goToScreen(8)" class="A_Button button">
+            Yes Please!
+          </button>
+          <button class="subtitle" onclick="goToScreen(8)">No thanks</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-8" class="screen">
+      <div class="Main-container Main-container-S">
+        <h1>Choose her Butt</h1>
+        <div id="butt-container" class="G_Cards"></div>
+      </div>
+    </div>
+
+    <div id="screen-9" class="screen">
+      <div class="Main-container">
+        <div class="video-layer">
+          <video id="butt-video" autoplay loop muted playsinline></video>
+          <div class="video-gradient"></div>
+        </div>
+        <div class="bottom-space">
+          <h1>Do you want me to send you Hot Photos?</h1>
+          <button onclick="goToScreen(10)" class="A_Button button">
+            Yes Please!
+          </button>
+          <button class="subtitle" onclick="goToScreen(10)">No thanks</button>
+        </div>
+      </div>
+    </div>
+    <div id="screen-10" class="screen">
+      <div class="Main-container Main-container-M">
+        <div class="Main-process scr-10">
+          <div class="C_ProgressBars">
+            <div class="M_ProgressBar">
+              <div class="M_ProgressBar_Text">
+                <p class="progress-bar-text">
+                  Choosing the right Al for best result...
+                </p>
+                <div class="W_Progress">
+                  <p class="progress-bar-persent" style="display: none">100%</p>
+                  <svg
+                    class="I_Progress"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="10"
+                    viewBox="0 0 14 10"
+                    fill="none"
+                  >
+                    <path
+                      d="M11.704 0.292893C12.0945 -0.0976311 12.7285 -0.097631 13.1191 0.292893C13.5092 0.683355 13.5092 1.31649 13.1191 1.70696L5.48917 9.33684C5.30166 9.52422 5.04724 9.62883 4.78214 9.62883C4.51705 9.62883 4.26261 9.52421 4.07511 9.33684L0.292882 5.55364C-0.097601 5.16309 -0.0976537 4.53007 0.292882 4.13957C0.683397 3.74912 1.31644 3.74913 1.70694 4.13957L4.78214 7.21477L11.704 0.292893Z"
+                      fill="#00E39C"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="A_ProgressBar"></div>
+            </div>
+            <div class="M_ProgressBar">
+              <div class="M_ProgressBar_Text">
+                <p class="progress-bar-text">Analyzing body type...</p>
+                <div class="W_Progress">
+                  <p class="progress-bar-persent" style="display: none">100%</p>
+                  <svg
+                    class="I_Progress"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="10"
+                    viewBox="0 0 14 10"
+                    fill="none"
+                  >
+                    <path
+                      d="M11.704 0.292893C12.0945 -0.0976311 12.7285 -0.097631 13.1191 0.292893C13.5092 0.683355 13.5092 1.31649 13.1191 1.70696L5.48917 9.33684C5.30166 9.52422 5.04724 9.62883 4.78214 9.62883C4.51705 9.62883 4.26261 9.52421 4.07511 9.33684L0.292882 5.55364C-0.097601 5.16309 -0.0976537 4.53007 0.292882 4.13957C0.683397 3.74912 1.31644 3.74913 1.70694 4.13957L4.78214 7.21477L11.704 0.292893Z"
+                      fill="#00E39C"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="A_ProgressBar"></div>
+            </div>
+            <div class="M_ProgressBar">
+              <div class="M_ProgressBar_Text">
+                <p class="progress-bar-text">Enhancing visual details...</p>
+                <div class="W_Progress">
+                  <p class="progress-bar-persent">74%</p>
+                  <svg
+                    class="I_Progress"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                  >
+                    <path
+                      d="M11.5361 3.80644C11.9681 4.96059 12.0315 6.22031 11.7175 7.412C11.4036 8.60369 10.7278 9.66869 9.78332 10.4602C8.8388 11.2518 7.67204 11.7309 6.44382 11.8316C5.2156 11.9323 3.98637 11.6496 2.92553 11.0225C1.8647 10.3954 1.02446 9.45468 0.520625 8.33004C0.0167859 7.2054 -0.12586 5.95218 0.112344 4.74308C0.350547 3.53397 0.957876 2.42851 1.85064 1.57901C2.7434 0.729508 3.87765 0.177796 5.09708 -0.00010304L5.41037 2.14735C4.63518 2.26044 3.91415 2.61116 3.34662 3.15118C2.7791 3.6912 2.39303 4.39394 2.2416 5.16256C2.09018 5.93118 2.18086 6.72784 2.50114 7.44277C2.82143 8.1577 3.35556 8.75569 4.02993 9.15436C4.70429 9.55302 5.48571 9.73273 6.26648 9.66871C7.04725 9.6047 7.78895 9.30011 8.38938 8.79693C8.9898 8.29374 9.41939 7.61673 9.61895 6.85918C9.81851 6.10163 9.77821 5.30083 9.50361 4.56714L11.5361 3.80644Z"
+                      fill="#00E39C"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="A_ProgressBar"></div>
+            </div>
+          </div>
+          <div class="O_ReviewWithHeader">
+            <h2>Trusted by 1,212,421 users</h2>
+            <div id="review-slider" class="M_ReviewSlider" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="photo-layer">
+          <img class="A_PhotoBg" src="" alt="" />
+          <div class="video-gradient"></div>
+        </div>
+      </div>
+    </div>
+    <div id="screen-11" class="screen" data-auto-next="12" data-delay="2000">
+      <div class="Main-container">
+        <h2>Loading Parameter 3/3...</h2>
+        <p>Подождите 2 секунды...</p>
+      </div>
+    </div>
+
+    <div id="screen-12" class="screen">
+      <div class="Main-container">
+        <h2>Ready!</h2>
+        <button onclick="goToScreen(1)">Начать заново</button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
