@@ -388,6 +388,15 @@ function selectButt(buttId, cardEl) {
   setTimeout(() => goToScreen(9), 440);
 }
 
+function selectVibe(vibeId, cardEl) {
+  userChoices.vibe = vibeId;
+  document
+    .querySelectorAll(".M_LongCard--straight")
+    .forEach((c) => c.classList.remove("M_LongCard--selected"));
+  if (cardEl) cardEl.classList.add("M_LongCard--selected");
+  setTimeout(() => goToScreen(13), 440);
+}
+
 // Универсальная отрисовка карточек
 function renderCards(containerId, items, onClickFunctionName) {
   const container = document.getElementById(containerId);
@@ -453,10 +462,10 @@ function goToPreviousScreen() {
 }
 
 const popups = [
-  `<div class="top-pop-up"><div class="icons I_Lock"></div><p class="description topPopUp">All your answers are encrypted</p></div>`,
-  `<div class="top-pop-up"><div class="icons I_Lock"></div><p class="description topPopUp">Girlfriend data encrypted</p></div>`,
-  `<div class="top-pop-up"><div class="icons I_Aprove"></div><p class="description topPopUp">Parameters Set</p></div>`,
-  `<div class="top-pop-up"><div class="icons I_Lock"></div><p class="description topPopUp">No Spam Guaranteed</p></div>`,
+  `<div class="A_top-pop-up"><div class="icons I_Lock"></div><p class="description topPopUp">All your answers are encrypted</p></div>`,
+  `<div class="A_top-pop-up"><div class="icons I_Lock"></div><p class="description topPopUp">Girlfriend data encrypted</p></div>`,
+  `<div class="A_top-pop-up"><div class="icons I_Aprove"></div><p class="description topPopUp">Parameters Set</p></div>`,
+  `<div class="A_top-pop-up"><div class="icons I_Lock"></div><p class="description topPopUp">No Spam Guaranteed</p></div>`,
 ];
 const popupScreens = { 1: 0, 11: 1, 15: 2, 18: 3 };
 
@@ -533,7 +542,10 @@ function startReviewSlider(runId) {
 
   slider.innerHTML = "";
   let currentIndex = 0;
-  const firstCard = createReviewCardEl(reviewsData[currentIndex], "M_Review--active");
+  const firstCard = createReviewCardEl(
+    reviewsData[currentIndex],
+    "M_Review--active",
+  );
   slider.appendChild(firstCard);
 
   screen10ReviewInterval = setInterval(() => {
@@ -543,7 +555,10 @@ function startReviewSlider(runId) {
     if (!currentCard) return;
 
     const nextIndex = (currentIndex + 1) % reviewsData.length;
-    const nextCard = createReviewCardEl(reviewsData[nextIndex], "M_Review--enter");
+    const nextCard = createReviewCardEl(
+      reviewsData[nextIndex],
+      "M_Review--enter",
+    );
     slider.appendChild(nextCard);
 
     const rafId = requestAnimationFrame(() => {
@@ -643,13 +658,23 @@ async function startScreen10Animations() {
   resetScreen10ProgressBars();
   startReviewSlider(runId);
 
-  const bars = Array.from(document.querySelectorAll("#screen-10 .M_ProgressBar"));
+  const bars = Array.from(
+    document.querySelectorAll("#screen-10 .M_ProgressBar"),
+  );
   const durations = [4000, 4000, 4000];
 
   for (let i = 0; i < bars.length; i += 1) {
-    const complete = await runSingleProgressBar(runId, bars[i], durations[i] || 4000);
+    const complete = await runSingleProgressBar(
+      runId,
+      bars[i],
+      durations[i] || 4000,
+    );
     if (!complete || runId !== screen10RunId) return;
   }
+
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  if (runId !== screen10RunId) return;
+  goToScreen(11);
 }
 
 function updateScreen() {

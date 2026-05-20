@@ -96,6 +96,7 @@
 
     <div id="screen-5" class="screen">
       <div class="Main-container">
+        <div class="A_BottomGradient" aria-hidden="true"></div>
         <div class="video-layer">
           <video id="body-video" autoplay loop muted playsinline></video>
           <div class="video-gradient"></div>
@@ -117,6 +118,7 @@
 
     <div id="screen-7" class="screen">
       <div class="Main-container">
+        <div class="A_BottomGradient" aria-hidden="true"></div>
         <div class="video-layer">
           <video id="breast-video" autoplay loop muted playsinline></video>
           <div class="video-gradient"></div>
@@ -139,6 +141,7 @@
     </div>
 
     <div id="screen-9" class="screen">
+      <div class="A_BottomGradient" aria-hidden="true"></div>
       <div class="Main-container">
         <div class="video-layer">
           <video id="butt-video" autoplay loop muted playsinline></video>
@@ -154,6 +157,7 @@
       </div>
     </div>
     <div id="screen-10" class="screen">
+      <div class="A_BottomGradient" aria-hidden="true"></div>
       <div class="Main-container Main-container-M">
         <div class="Main-process scr-10">
           <div class="C_ProgressBars">
@@ -228,26 +232,76 @@
           </div>
           <div class="O_ReviewWithHeader">
             <h2>Trusted by 1,212,421 users</h2>
-            <div id="review-slider" class="M_ReviewSlider" aria-live="polite"></div>
+            <div
+              id="review-slider"
+              class="M_ReviewSlider"
+              aria-live="polite"
+            ></div>
           </div>
         </div>
-        <div class="photo-layer">
+        <!-- <div class="photo-layer">
           <img class="A_PhotoBg" src="" alt="" />
           <div class="video-gradient"></div>
-        </div>
+        </div> -->
       </div>
     </div>
-    <div id="screen-11" class="screen" data-auto-next="12" data-delay="2000">
-      <div class="Main-container">
-        <h2>Loading Parameter 3/3...</h2>
-        <p>Подождите 2 секунды...</p>
+    <div id="screen-11" class="screen">
+      <div class="A_BottomGradient" aria-hidden="true"></div>
+      <div class="Main-container Main-container-S">
+        <div class="M_Card">
+          <img class="I_KeyVis" src="src/img/I_KeyVis-1.svg" alt="" />
+          <p class="option">What happens next stays in here</p>
+          <p class="text grey">
+            We never disclose your information to anyone, and we do not store
+            any of your data.
+          </p>
+        </div>
+        <div class="bottom-space">
+          <button onclick="goToScreen(12)" class="A_Button button">
+            Continue
+          </button>
+        </div>
       </div>
     </div>
 
     <div id="screen-12" class="screen">
-      <div class="Main-container">
-        <h2>Ready!</h2>
-        <button onclick="goToScreen(1)">Начать заново</button>
+      <div class="Main-container Main-container-L">
+        <div class="M_Header">
+          <h1>What is her secret vibe?</h1>
+          <p class="A_Subtitle subtitle">
+            This affects the type of photos she sends
+          </p>
+        </div>
+        <div class="C_LongCards">
+          <div
+            class="M_LongCard M_LongCard--straight"
+            onclick="selectVibe('innocent', this)"
+          >
+            <img src="src/img/I_12.1.png" class="I_straight" alt="" />
+            <p class="option">Innocent &amp; Shy</p>
+          </div>
+          <div
+            class="M_LongCard M_LongCard--straight"
+            onclick="selectVibe('naughty', this)"
+          >
+            <img src="src/img/I_12.2.png" class="I_straight" alt="" />
+            <p class="option">Naughty Student</p>
+          </div>
+          <div
+            class="M_LongCard M_LongCard--straight"
+            onclick="selectVibe('boss', this)"
+          >
+            <img src="src/img/I_12.3.png" class="I_straight" alt="" />
+            <p class="option">Strict Boss</p>
+          </div>
+          <div
+            class="M_LongCard M_LongCard--straight"
+            onclick="selectVibe('exhibitionist', this)"
+          >
+            <img src="src/img/I_12.4.png" class="I_straight" alt="" />
+            <p class="option">Exhibitionist</p>
+          </div>
+        </div>
       </div>
     </div>
 

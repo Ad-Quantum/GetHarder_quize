@@ -390,20 +390,58 @@
   padding: 0 26px;
   align-items: center;
   cursor: pointer;
-}
-.M_LongCard--voice {
-  justify-content: space-between;
-  border-radius: 18px;
-  border: 1px solid var(--text-2);
-  background: #262a2b;
 
+  border-radius: 18px;
+  /* border: 1px solid #434343; */
+  background: #262a2b;
   transition:
     border-color 0.25s ease,
     box-shadow 0.25s ease;
 }
+
+.C_LongCards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.M_LongCard--voice {
+  justify-content: space-between;
+}
+
+.M_LongCard--straight {
+  gap: 20px;
+}
+
 .M_LongCard--selected {
   border: 2px solid var(--purple);
   box-shadow: 0 0 26px 0 rgba(174, 82, 231, 0.5);
+}
+
+.A_Button {
+  display: flex;
+  width: 404px;
+  height: 60px;
+  padding: 7px 20px 10px 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  background: linear-gradient(168deg, #f899ff 6.19%, #ae52e7 84.27%);
+}
+
+.bottom-space button.subtitle {
+  background: transparent;
+  color: var(--text-2);
+}
+
+.C_ProgressBars {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 /* затухание экрана после выбора любой из карточек*/
@@ -417,39 +455,6 @@
   to {
     opacity: 0;
   }
-}
-
-.C_LongCards {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.A_Button {
-  display: flex;
-  width: 404px;
-  height: 60px;
-  padding: 7px 20px 10px 20px;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 100px;
-  background: linear-gradient(168deg, #f899ff 6.19%, #ae52e7 84.27%);
-}
-
-.bottom-space button.subtitle {
-  background: transparent;
-  color: var(--text-2); /* серый цвет текста, чтобы он был виден */
-}
-
-.C_ProgressBars {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
 }
 
 .M_ProgressBar {
@@ -556,4 +561,46 @@
   display: flex;
   align-items: center;
   gap: 6px;
+}
+
+.M_Card {
+  display: flex;
+  width: 458px;
+  padding: 20px 40px 30px 40px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  background: #2f3037;
+}
+
+.I_KeyVis {
+  display: flex;
+  width: 70px;
+  height: 70px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.I_straight {
+  width: 34px;
+  height: 34px;
+}
+
+/* Градиентный фон для нижней части экрана (только для 5,7,9,10) */
+.A_BottomGradient {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  height: 300px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(174, 82, 231, 0) 0%,
+    rgba(174, 82, 231, 0.32) 100%
+  );
 }
