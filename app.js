@@ -192,6 +192,76 @@ const voiceData = [
   },
 ];
 
+// БАЗА ИМЁН
+const randomNames = [
+  "Alina",
+  "Sofia",
+  "Mia",
+  "Luna",
+  "Aria",
+  "Chloe",
+  "Zoe",
+  "Lily",
+  "Ella",
+  "Nora",
+  "Emma",
+  "Ava",
+  "Isla",
+  "Aurora",
+  "Stella",
+  "Jade",
+  "Maya",
+  "Leah",
+  "Ruby",
+  "Eva",
+  "Anna-Marie",
+  "Mary-Jane",
+  "Sara",
+  "Nina",
+  "Lena",
+];
+
+function setRandomName() {
+  const input = document.getElementById("name-input");
+  if (!input) return;
+  const name = randomNames[Math.floor(Math.random() * randomNames.length)];
+  input.value = name;
+  userChoices.name = name;
+  input.focus();
+}
+
+function confirmName() {
+  const input = document.getElementById("name-input");
+  if (!input) return;
+  userChoices.name = input.value.trim() || null;
+  if (userChoices.name) {
+    localStorage.setItem("quizName", userChoices.name);
+  } else {
+    localStorage.removeItem("quizName");
+  }
+  goToScreen(17);
+}
+
+function confirmEmail() {
+  const input = document.getElementById("email-input");
+  if (!input) return;
+  const email = input.value.trim();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const card = input.closest(".M_LongCard");
+  const errorEl = document.getElementById("email-error");
+  if (!emailRegex.test(email)) {
+    if (card) card.classList.add("M_LongCard--error");
+    if (errorEl) errorEl.style.display = "block";
+    input.focus();
+    return;
+  }
+  if (card) card.classList.remove("M_LongCard--error");
+  if (errorEl) errorEl.style.display = "none";
+  userChoices.email = email;
+  localStorage.setItem("quizEmail", email);
+  goToScreen(19);
+}
+
 // 2. СОСТОЯНИЕ
 let userChoices = {
   style: null,
@@ -200,6 +270,18 @@ let userChoices = {
   body: null,
   breast: null,
   butt: null,
+  vibe: null,
+  content: null,
+  name: null,
+  libido: 0,
+  kinkOpenness: 0,
+  comfortNudity: 0,
+};
+
+const sliderKeyMap = {
+  libido: "libido",
+  kink: "kinkOpenness",
+  comfort: "comfortNudity",
 };
 
 let currentTimer = null;
@@ -208,6 +290,11 @@ let screen10RunId = 0;
 let screen10ReviewInterval = null;
 let screen10ReviewCleanupTimeout = null;
 const screen10AnimationRafs = new Set();
+
+let screen17RunId = 0;
+let screen17ReviewInterval = null;
+let screen17ReviewCleanupTimeout = null;
+const screen17AnimationRafs = new Set();
 
 const PROGRESS_ICON_LOADING_SVG = `
   <svg
@@ -324,6 +411,7 @@ function renderVoiceCards() {
 
 function selectVoice(voiceId) {
   userChoices.voice = voiceId;
+  localStorage.setItem("quizVoice", voiceId);
   document
     .querySelectorAll(".M_LongCard--voice")
     .forEach((c) => c.classList.remove("M_LongCard--selected"));
@@ -390,11 +478,22 @@ function selectButt(buttId, cardEl) {
 
 function selectVibe(vibeId, cardEl) {
   userChoices.vibe = vibeId;
+  localStorage.setItem("quizVibe", vibeId);
   document
-    .querySelectorAll(".M_LongCard--straight")
+    .querySelectorAll("#screen-12 .M_LongCard--straight")
     .forEach((c) => c.classList.remove("M_LongCard--selected"));
   if (cardEl) cardEl.classList.add("M_LongCard--selected");
   setTimeout(() => goToScreen(13), 440);
+}
+
+function selectContent(contentId, cardEl) {
+  userChoices.content = contentId;
+  localStorage.setItem("quizContent", contentId);
+  document
+    .querySelectorAll("#screen-14 .M_LongCard--straight")
+    .forEach((c) => c.classList.remove("M_LongCard--selected"));
+  if (cardEl) cardEl.classList.add("M_LongCard--selected");
+  setTimeout(() => goToScreen(15), 440);
 }
 
 // Универсальная отрисовка карточек
@@ -499,6 +598,157 @@ function updateTopSpace(screenNumber) {
 function cancelScreen10Rafs() {
   screen10AnimationRafs.forEach((id) => cancelAnimationFrame(id));
   screen10AnimationRafs.clear();
+}
+
+function cancelScreen17Rafs() {
+  screen17AnimationRafs.forEach((id) => cancelAnimationFrame(id));
+  screen17AnimationRafs.clear();
+}
+
+function stopScreen17Animations() {
+  screen17RunId += 1;
+  cancelScreen17Rafs();
+  if (screen17ReviewInterval) {
+    clearInterval(screen17ReviewInterval);
+    screen17ReviewInterval = null;
+  }
+  if (screen17ReviewCleanupTimeout) {
+    clearTimeout(screen17ReviewCleanupTimeout);
+    screen17ReviewCleanupTimeout = null;
+  }
+}
+
+function startReviewSlider17(runId) {
+  const slider = document.getElementById("review-slider-17");
+  if (!slider) return;
+  slider.innerHTML = "";
+  let currentIndex = 0;
+  const firstCard = createReviewCardEl(
+    reviewsData[currentIndex],
+    "M_Review--active",
+  );
+  slider.appendChild(firstCard);
+  screen17ReviewInterval = setInterval(() => {
+    if (runId !== screen17RunId) return;
+    const currentCard = slider.querySelector(".M_Review--active");
+    if (!currentCard) return;
+    const nextIndex = (currentIndex + 1) % reviewsData.length;
+    const nextCard = createReviewCardEl(
+      reviewsData[nextIndex],
+      "M_Review--enter",
+    );
+    slider.appendChild(nextCard);
+    const rafId = requestAnimationFrame(() => {
+      if (runId !== screen17RunId) return;
+      currentCard.classList.add("M_Review--exit-left");
+      nextCard.classList.remove("M_Review--enter");
+      nextCard.classList.add("M_Review--active");
+    });
+    screen17AnimationRafs.add(rafId);
+    screen17ReviewCleanupTimeout = setTimeout(() => {
+      if (runId !== screen17RunId) return;
+      currentCard.remove();
+      currentIndex = nextIndex;
+    }, 360);
+  }, 4000);
+}
+
+function resetScreen17ProgressBars() {
+  document.querySelectorAll("#screen-17 .M_ProgressBar").forEach((bar) => {
+    bar.classList.add("M_ProgressBar--hidden");
+    const fill = bar.querySelector(".A_ProgressBar");
+    if (fill) fill.style.width = "0%";
+    const percentLabel = bar.querySelector(".progress-bar-persent");
+    if (percentLabel) {
+      percentLabel.style.display = "block";
+      percentLabel.textContent = "0%";
+    }
+    const progressWrap = bar.querySelector(".W_Progress");
+    if (progressWrap) setProgressIcon(progressWrap, PROGRESS_ICON_LOADING_SVG);
+  });
+}
+
+function runSingleProgressBar17(runId, barEl, durationMs) {
+  return new Promise((resolve) => {
+    if (!barEl || runId !== screen17RunId) {
+      resolve(false);
+      return;
+    }
+    const fillEl = barEl.querySelector(".A_ProgressBar");
+    const percentEl = barEl.querySelector(".progress-bar-persent");
+    const progressWrap = barEl.querySelector(".W_Progress");
+    barEl.classList.remove("M_ProgressBar--hidden");
+    if (progressWrap) setProgressIcon(progressWrap, PROGRESS_ICON_LOADING_SVG);
+    if (percentEl) {
+      percentEl.style.display = "block";
+      percentEl.textContent = "0%";
+    }
+    if (fillEl) fillEl.style.width = "0%";
+    const startTime = performance.now();
+    const tick = (now) => {
+      if (runId !== screen17RunId) {
+        resolve(false);
+        return;
+      }
+      const progress = Math.min(
+        100,
+        Math.round(((now - startTime) / durationMs) * 100),
+      );
+      if (fillEl) fillEl.style.width = `${progress}%`;
+      if (percentEl) percentEl.textContent = `${progress}%`;
+      if (progress < 100) {
+        const rafId = requestAnimationFrame(tick);
+        screen17AnimationRafs.add(rafId);
+        return;
+      }
+      if (percentEl) percentEl.style.display = "none";
+      if (progressWrap) setProgressIcon(progressWrap, PROGRESS_ICON_CHECK_SVG);
+      resolve(true);
+    };
+    const rafId = requestAnimationFrame(tick);
+    screen17AnimationRafs.add(rafId);
+  });
+}
+
+async function startScreen17Animations() {
+  stopScreen17Animations();
+  const runId = screen17RunId;
+
+  const bar2Text = document.getElementById("screen-17-bar-2-text");
+  if (bar2Text)
+    bar2Text.textContent = `Setting behavior to Libido: ${userChoices.libido}%...`;
+
+  const heading = document.getElementById("screen-17-heading");
+  if (heading)
+    heading.textContent = userChoices.name
+      ? `Rendering ${userChoices.name} Content...`
+      : "Rendering Content...";
+
+  const title = document.getElementById("screen-17-title");
+  if (title)
+    title.textContent = userChoices.name
+      ? `Meet ${userChoices.name}`
+      : "Meet your girlfriend";
+
+  resetScreen17ProgressBars();
+  startReviewSlider17(runId);
+
+  const bars = Array.from(
+    document.querySelectorAll("#screen-17 .M_ProgressBar"),
+  );
+  const durations = [3000, 3500, 4000, 4000, 3000];
+  for (let i = 0; i < bars.length; i++) {
+    const complete = await runSingleProgressBar17(
+      runId,
+      bars[i],
+      durations[i] || 4000,
+    );
+    if (!complete || runId !== screen17RunId) return;
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  if (runId !== screen17RunId) return;
+  goToScreen(18);
 }
 
 function stopScreen10Animations() {
@@ -718,6 +968,17 @@ function updateScreen() {
     } else {
       stopScreen10Animations();
     }
+    if (screenNumber === 17) {
+      startScreen17Animations();
+    } else {
+      stopScreen17Animations();
+    }
+    if (screenNumber === 18) {
+      const h = document.getElementById("screen-18-heading");
+      if (h && userChoices.name) {
+        h.textContent = `Secure access to ${userChoices.name}`;
+      }
+    }
 
     if (currentTimer) clearTimeout(currentTimer);
 
@@ -730,8 +991,72 @@ function updateScreen() {
   }
 }
 
+// 5. ПОЛЗУНКИ (screen-13)
+function initSliders() {
+  document.querySelectorAll("#screen-13 .A_Slider").forEach(function (slider) {
+    const track = slider.querySelector(".A_Slider__track");
+    const fill = slider.querySelector(".A_Slider__fill");
+    const thumb = slider.querySelector(".A_Slider__thumb");
+    const percentEl = slider
+      .closest(".M_LongCard")
+      .querySelector(".A_Slider__percent");
+    const sliderKey = sliderKeyMap[slider.dataset.slider];
+
+    let isDragging = false;
+
+    function getPercent(clientX) {
+      const rect = track.getBoundingClientRect();
+      const offsetX = clientX - rect.left;
+      return Math.min(100, Math.max(0, (offsetX / rect.width) * 100));
+    }
+
+    function setPercent(percent) {
+      const rounded = Math.round(percent);
+      fill.style.width = percent + "%";
+      thumb.style.left = percent + "%";
+      slider.setAttribute("aria-valuenow", rounded);
+      if (percentEl) percentEl.textContent = rounded + "%";
+      if (sliderKey) {
+        userChoices[sliderKey] = rounded;
+        localStorage.setItem("quiz_" + sliderKey, rounded);
+      }
+    }
+
+    function onStart(e) {
+      isDragging = true;
+      slider.classList.add("A_Slider--active");
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      setPercent(getPercent(clientX));
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onEnd);
+      document.addEventListener("touchmove", onMove, { passive: false });
+      document.addEventListener("touchend", onEnd);
+    }
+
+    function onMove(e) {
+      if (!isDragging) return;
+      if (e.cancelable) e.preventDefault();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      setPercent(getPercent(clientX));
+    }
+
+    function onEnd() {
+      isDragging = false;
+      slider.classList.remove("A_Slider--active");
+      document.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseup", onEnd);
+      document.removeEventListener("touchmove", onMove);
+      document.removeEventListener("touchend", onEnd);
+    }
+
+    slider.addEventListener("mousedown", onStart);
+    slider.addEventListener("touchstart", onStart, { passive: true });
+  });
+}
+
 window.addEventListener("hashchange", updateScreen);
 window.addEventListener("load", () => {
+  initSliders();
   const savedStyle = localStorage.getItem("quizStyle");
   if (savedStyle && quizData[savedStyle]) {
     userChoices.style = savedStyle;
@@ -739,7 +1064,6 @@ window.addEventListener("load", () => {
     renderCards("ethnicity-container", data.ethnicity, "selectEthnicity");
     renderCards("body-container", data.body, "selectBody");
   }
-  updateScreen();
   const savedBody = localStorage.getItem("quizBody");
   if (savedBody && quizData[savedStyle]?.bodyVideo?.[savedBody]) {
     userChoices.body = savedBody;
@@ -758,4 +1082,81 @@ window.addEventListener("load", () => {
     const buttEl = document.getElementById("butt-video");
     if (buttEl) buttEl.src = quizData[savedStyle].buttVideo[savedButt];
   }
+
+  const savedVoice = localStorage.getItem("quizVoice");
+  if (savedVoice) userChoices.voice = savedVoice;
+
+  const savedVibe = localStorage.getItem("quizVibe");
+  if (savedVibe) {
+    userChoices.vibe = savedVibe;
+    document
+      .querySelectorAll("#screen-12 .M_LongCard--straight")
+      .forEach((c) => {
+        if (c.getAttribute("onclick")?.includes(`'${savedVibe}'`)) {
+          c.classList.add("M_LongCard--selected");
+        }
+      });
+  }
+
+  const savedContent = localStorage.getItem("quizContent");
+  if (savedContent) {
+    userChoices.content = savedContent;
+    document
+      .querySelectorAll("#screen-14 .M_LongCard--straight")
+      .forEach((c) => {
+        if (c.getAttribute("onclick")?.includes(`'${savedContent}'`)) {
+          c.classList.add("M_LongCard--selected");
+        }
+      });
+  }
+
+  const savedName = localStorage.getItem("quizName");
+  if (savedName) {
+    userChoices.name = savedName;
+    const nameInput = document.getElementById("name-input");
+    if (nameInput) nameInput.value = savedName;
+  }
+
+  const sliderKeys = {
+    libido: "libido",
+    kink: "kinkOpenness",
+    comfort: "comfortNudity",
+  };
+  document.querySelectorAll("#screen-13 .A_Slider").forEach((slider) => {
+    const key = slider.dataset.slider;
+    const storeKey = "quiz_" + sliderKeys[key];
+    const saved = localStorage.getItem(storeKey);
+    if (saved !== null) {
+      const val = Number(saved);
+      const fill = slider.querySelector(".A_Slider__fill");
+      const thumb = slider.querySelector(".A_Slider__thumb");
+      const percentEl = slider
+        .closest(".M_LongCard")
+        ?.querySelector(".A_Slider__percent");
+      if (fill) fill.style.width = val + "%";
+      if (thumb) thumb.style.left = val + "%";
+      if (percentEl) percentEl.textContent = val + "%";
+      slider.setAttribute("aria-valuenow", val);
+      if (sliderKeys[key]) userChoices[sliderKeys[key]] = val;
+    }
+  });
+
+  // Валидация поля ввода имени
+  const nameInput = document.getElementById("name-input");
+  if (nameInput) {
+    nameInput.addEventListener("input", () => {
+      nameInput.value = nameInput.value.replace(
+        /[^a-zA-Z\u00C0-\u024F\u0400-\u04FF-]/g,
+        "",
+      );
+      userChoices.name = nameInput.value.trim() || null;
+      if (userChoices.name) {
+        localStorage.setItem("quizName", userChoices.name);
+      } else {
+        localStorage.removeItem("quizName");
+      }
+    });
+  }
+
+  updateScreen();
 });
