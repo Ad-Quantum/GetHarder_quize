@@ -25,13 +25,14 @@
 }
 
 .video-layer {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: min(100vw, 700px);
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+  z-index: 0;
 }
 
 .video-gradient {
