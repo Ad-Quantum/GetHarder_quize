@@ -33,4 +33,6 @@ body,
 html {
   font-family: "Manrope", sans-serif;
   background-color: var(--bg-color);
+  height: 100%;
+  overflow: hidden;
 }
