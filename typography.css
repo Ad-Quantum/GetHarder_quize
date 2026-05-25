@@ -50,6 +50,10 @@ h2 {
   text-align: center;
 }
 
+.M_LongCard .option {
+  text-align: left;
+}
+
 .subtitle {
   font-size: 16px;
   line-height: 134%;
@@ -79,12 +83,13 @@ h2 {
   color: var(--white);
 }
 
-.top-pop-up {
+.topPopUp {
   font-size: 14px;
   line-height: 134%;
   font-family: "Inter";
   font-weight: medium;
-  color: var(--text-2);
+  color: var(--white);
+  /* color: var(--text-2); */
 }
 
 .review {
@@ -97,6 +102,7 @@ h2 {
 .progress-bar-text {
   color: var(--white);
   font-family: "Manrope";
+  text-align: left;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
@@ -115,4 +121,10 @@ h2 {
 
 .grey {
   color: var(--text-2);
+}
+
+@media (max-width: 780px) {
+  .progress-bar-text {
+    font-size: 14px;
+  }
 }

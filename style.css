@@ -152,8 +152,8 @@
   padding-top: 120px;
 }
 
-.Main-container-S {
-  width: 350px;
+.Main-container-L {
+  width: 516px;
 }
 
 /* для прогресс-баров внутри фоток на экранах 10 и тд*/
@@ -168,8 +168,8 @@
   align-items: center;
 }
 
-.Main-container-L {
-  width: 516px;
+.Main-container-S {
+  width: 350px;
 }
 
 .M_Header {
@@ -772,5 +772,44 @@
 @media (max-width: 780px) {
   .A_SiteLogo {
     display: none;
+  }
+  .top-space,
+  .bottom-space {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  .A_Button {
+    width: 100%;
+    height: 52px;
+  }
+
+  .Main-container-M {
+    width: 100%;
+    padding-right: 24px;
+    padding-left: 24px;
+  }
+}
+
+@media (max-width: 559px) {
+  .Main-container-L {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+  .Main-container-S {
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .M_LongCard {
+    width: 100%;
+    padding: 14px 16px;
+  }
+
+  .G_Cards .A_Card.A_Card--photo,
+  .G_Cards .A_Card.A_CardVideo {
+    max-height: 200px;
   }
 }

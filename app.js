@@ -824,7 +824,7 @@ function createReviewCardEl(review, className) {
   card.innerHTML = `
     <div class="C_Stars">${createReviewStarsMarkup()}</div>
     <p class="review">${review.text}</p>
-    <p class="top-pop-up">${review.author}</p>
+    <p class="topPopUp grey">${review.author}</p>
   `;
   return card;
 }
