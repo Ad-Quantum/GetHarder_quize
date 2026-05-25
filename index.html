@@ -3,13 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>18 Экранов</title>
+    <title>GetHarder</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="src/img/I_favicon-isolated.ico"
+    />
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="vars.css" />
     <link rel="stylesheet" href="typography.css" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <img
+      id="site-logo"
+      class="A_SiteLogo"
+      src="src/img/I_logo-getharder.svg"
+      alt="GetHarder"
+    />
     <div class="top-space"></div>
     <!-- <div class="bottom-space">
       <button class="A_Button button">Yes</button>
@@ -612,7 +623,7 @@
               id="email-input"
               class="A_NameInput"
               type="email"
-              placeholder="your@email.com"
+              placeholder="Enter your email..."
               autocomplete="email"
               spellcheck="false"
               oninput="
@@ -622,13 +633,13 @@
                 document.getElementById('email-error').style.display = 'none';
               "
             />
-            <img class="I_Random" src="src/img/I_Lock.svg" alt="" />
+            <img class="I_Random" src="src/img/I_18.1.svg" alt="" />
           </div>
           <p id="email-error" class="A_EmailError">Invalid email</p>
         </div>
         <div class="bottom-space">
           <button onclick="confirmEmail()" class="A_Button button">
-            Continue
+            Unlock My Access
           </button>
         </div>
       </div>

@@ -177,18 +177,18 @@ const voiceData = [
   {
     id: "sweet",
     label: "Sweet & Innocent",
-    audioSrc: "src/audio/voice_sweet.mp3",
+    audioSrc: "src/audio/voice_1.mp3",
   },
   {
     id: "raspy",
     label: "Raspy & Dominant",
-    audioSrc: "src/audio/voice_raspy.mp3",
+    audioSrc: "src/audio/voice_2.mp3",
   },
-  { id: "asmr", label: "ASMR Whisper", audioSrc: "src/audio/voice_asmr.mp3" },
+  { id: "asmr", label: "ASMR Whisper", audioSrc: "src/audio/voice_3.mp3" },
   {
     id: "playful",
     label: "Playful Tease",
-    audioSrc: "src/audio/voice_playful.mp3",
+    audioSrc: "src/audio/voice_4.mp3",
   },
 ];
 
@@ -286,6 +286,7 @@ const sliderKeyMap = {
 
 let currentTimer = null;
 let currentAudio = null;
+let currentAudioButton = null;
 let screen10RunId = 0;
 let screen10ReviewInterval = null;
 let screen10ReviewCleanupTimeout = null;
@@ -421,14 +422,56 @@ function selectVoice(voiceId) {
   setTimeout(() => goToScreen(4), 440);
 }
 
-function playVoice(event, audioSrc) {
-  event.stopPropagation();
+function stopCurrentAudio() {
   if (currentAudio) {
     currentAudio.pause();
     currentAudio.currentTime = 0;
+    currentAudio = null;
   }
+  if (currentAudioButton) {
+    currentAudioButton.style.backgroundImage = 'url("src/img/I_Play.svg")';
+    currentAudioButton.style.backgroundPosition = "calc(50% + 1px) center";
+    currentAudioButton = null;
+  }
+}
+
+function playVoice(event, audioSrc) {
+  event.stopPropagation();
+  const btn = event.currentTarget;
+
+  // Toggle: if this button is already the active one, pause/resume
+  if (currentAudioButton === btn && currentAudio) {
+    if (!currentAudio.paused) {
+      currentAudio.pause();
+      btn.style.backgroundImage = 'url("src/img/I_Play.svg")';
+      btn.style.backgroundPosition = "calc(50% + 1px) center";
+    } else {
+      currentAudio.play();
+      btn.style.backgroundImage = 'url("src/img/I_Pause.svg")';
+      btn.style.backgroundPosition = "50% center";
+    }
+    return;
+  }
+
+  // Stop any other playing audio and reset its button icon
+  stopCurrentAudio();
+
   currentAudio = new Audio(audioSrc);
+  currentAudioButton = btn;
+  btn.style.backgroundImage = 'url("src/img/I_Pause.svg")';
+  btn.style.backgroundPosition = "50% center";
+
   currentAudio.play();
+
+  // When audio ends naturally, reset icon
+  currentAudio.addEventListener("ended", () => {
+    if (currentAudioButton === btn) {
+      btn.style.backgroundImage = 'url("src/img/I_Play.svg")';
+      btn.style.backgroundPosition = "calc(50% + 1px) center";
+      currentAudioButton = null;
+      currentAudio = null;
+    }
+  });
 }
 
 function selectBody(bodyId, cardEl) {
@@ -583,7 +626,7 @@ function updateTopSpace(screenNumber) {
         <button class="A_ArrowButton" type="button" aria-label="Go to previous step" onclick="goToPreviousScreen()"></button>
         <div class="progress-bar-wrap">
           <div class="progress-bar-fill" style="width:${percent}%"></div>
-          <div class="A_StatusIcon" style="left: clamp(10px, ${clampedPercent}%, calc(100% - 10px));" aria-hidden="true"></div>
+          <div class="A_StatusIcon" style="left: calc(${clampedPercent}% + 2px);" aria-hidden="true"></div>
         </div>
         <div class="A_Avatar" aria-hidden="true"></div>
       </div>
@@ -727,8 +770,8 @@ async function startScreen17Animations() {
   const title = document.getElementById("screen-17-title");
   if (title)
     title.textContent = userChoices.name
-      ? `Meet ${userChoices.name}`
-      : "Meet your girlfriend";
+      ? `Trusted by 1,212,421 users`
+      : "Trusted by 1,212,421 users";
 
   resetScreen17ProgressBars();
   startReviewSlider17(runId);
@@ -929,6 +972,10 @@ async function startScreen10Animations() {
 
 function updateScreen() {
   let hash = window.location.hash || "#screen-1";
+
+  // Stop voice audio when navigating away from screen 3
+  const prevHash = document.querySelector(".screen.active")?.id;
+  if (prevHash === "screen-3") stopCurrentAudio();
 
   document.querySelectorAll(".screen").forEach((screen) => {
     screen.classList.remove("active", "screen-fade-out");
