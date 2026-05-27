@@ -1206,4 +1206,15 @@ window.addEventListener("load", () => {
   }
 
   updateScreen();
+
+  // Preload all card images while user is on screen 1
+  const allCardImages = Object.values(quizData).flatMap((style) => [
+    ...style.body.map((i) => i.imgSrc),
+    ...style.breast.map((i) => i.imgSrc),
+    ...style.butt.map((i) => i.imgSrc),
+  ]);
+  allCardImages.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
 });
