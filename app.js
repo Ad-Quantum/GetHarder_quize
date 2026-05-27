@@ -582,6 +582,8 @@ function renderCards(containerId, items, onClickFunctionName) {
 // 4. ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ
 
 function goToScreen(screenNumber) {
+  if (window.location.hash === "#screen-" + screenNumber) return;
+
   const activeScreen = document.querySelector(".screen.active");
   if (activeScreen) {
     activeScreen.classList.add("screen-fade-out");
