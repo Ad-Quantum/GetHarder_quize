@@ -344,11 +344,11 @@ const reviewsData = [
   },
   {
     text: "The character quality is crazy. Photos look premium and responses feel natural.",
-    author: "Mia K.",
+    author: "Alex K.",
   },
   {
     text: "Fast setup, no confusion, and the results are exactly what I wanted.",
-    author: "Nina B.",
+    author: "Mike B.",
   },
   {
     text: "I tried other apps before, this one is by far the most realistic.",
@@ -364,7 +364,7 @@ const reviewsData = [
   },
   {
     text: "Everything from look to voice feels tailored. Worth it for me.",
-    author: "Sophie W.",
+    author: "Donald W.",
   },
 ];
 

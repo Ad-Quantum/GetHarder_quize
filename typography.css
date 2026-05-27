@@ -117,14 +117,39 @@ h2 {
   font-style: normal;
   font-weight: 500;
   line-height: 134%; /* 18.76px */
+  min-width: 40px;
 }
 
 .grey {
   color: var(--text-2);
 }
 
+@media (max-width: 559px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .A_Subtitle {
+    font-size: 13px;
+  }
+
+  .button {
+    font-size: 16px;
+  }
+  .subtitle {
+    font-size: 13px;
+  }
+
+  .option {
+    font-size: 14px;
+  }
+}
+
 @media (max-width: 780px) {
   .progress-bar-text {
     font-size: 14px;
+  }
+  .bottom-space {
+    bottom: 20px;
   }
 }

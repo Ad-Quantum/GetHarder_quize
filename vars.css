@@ -35,3 +35,12 @@ html {
   background-color: var(--bg-color);
   overflow: hidden;
 }
+
+@media (max-width: 559px) {
+  :root {
+    --gap-L: 18px;
+    --gap-M: 12px;
+    --gap-S: 8px;
+    --gap-XS: 6px;
+  }
+}
