@@ -1,7 +1,7 @@
 // 1. БАЗА ДАННЫХ
 const quizData = {
   real: {
-    bgPhoto: "src/img/real_blured.png",
+    bgPhoto: "src/img/real_blured.jpg",
     ethnicity: [
       {
         id: "Caucasian",
@@ -28,15 +28,15 @@ const quizData = {
       {
         id: "Sporty",
         label: "Sporty",
-        imgSrc: "src/img/real_body_sporty.png",
+        imgSrc: "src/img/real_body_sporty.jpg",
       },
-      { id: "Curvy", label: "Curvy", imgSrc: "src/img/real_body_curvy.png" },
+      { id: "Curvy", label: "Curvy", imgSrc: "src/img/real_body_curvy.jpg" },
       {
         id: "Normal",
         label: "Normal",
-        imgSrc: "src/img/real_body_normal.png",
+        imgSrc: "src/img/real_body_normal.jpg",
       },
-      { id: "Slim", label: "Slim", imgSrc: "src/img/real_body_slim.png" },
+      { id: "Slim", label: "Slim", imgSrc: "src/img/real_body_slim.jpg" },
     ],
     bodyVideo: {
       Sporty: "src/video/real_body_sporty.mp4",
@@ -45,17 +45,17 @@ const quizData = {
       Slim: "src/video/real_body_slim.mp4",
     },
     breast: [
-      { id: "Big", label: "Big", imgSrc: "src/img/real_breasts_big.png" },
+      { id: "Big", label: "Big", imgSrc: "src/img/real_breasts_big.jpg" },
       {
         id: "Normal",
         label: "Normal",
-        imgSrc: "src/img/real_breasts_normal.png",
+        imgSrc: "src/img/real_breasts_normal.jpg",
       },
-      { id: "Small", label: "Small", imgSrc: "src/img/real_breasts_small.png" },
+      { id: "Small", label: "Small", imgSrc: "src/img/real_breasts_small.jpg" },
       {
         id: "Very-small",
         label: "Very small",
-        imgSrc: "src/img/real_breasts_verysmall.png",
+        imgSrc: "src/img/real_breasts_verysmall.jpg",
       },
     ],
     breastVideo: {
@@ -65,13 +65,13 @@ const quizData = {
       "Very-small": "src/video/real_breasts_verysmall.mp4",
     },
     butt: [
-      { id: "Big", label: "Big", imgSrc: "src/img/real_butt_big.png" },
-      { id: "Normal", label: "Normal", imgSrc: "src/img/real_butt_normal.png" },
-      { id: "Small", label: "Small", imgSrc: "src/img/real_butt_small.png" },
+      { id: "Big", label: "Big", imgSrc: "src/img/real_butt_big.jpg" },
+      { id: "Normal", label: "Normal", imgSrc: "src/img/real_butt_normal.jpg" },
+      { id: "Small", label: "Small", imgSrc: "src/img/real_butt_small.jpg" },
       {
         id: "Very-small",
         label: "Very small",
-        imgSrc: "src/img/real_butt_verysmall.png",
+        imgSrc: "src/img/real_butt_verysmall.jpg",
       },
     ],
     buttVideo: {
@@ -82,7 +82,7 @@ const quizData = {
     },
   },
   anime: {
-    bgPhoto: "src/img/anime_blured.png",
+    bgPhoto: "src/img/anime_blured.jpg",
     ethnicity: [
       {
         id: "Caucasian",
@@ -109,15 +109,15 @@ const quizData = {
       {
         id: "Sporty",
         label: "Sporty",
-        imgSrc: "src/img/anime_body_sporty.png",
+        imgSrc: "src/img/anime_body_sporty.jpg",
       },
-      { id: "Curvy", label: "Curvy", imgSrc: "src/img/anime_body_curvy.png" },
+      { id: "Curvy", label: "Curvy", imgSrc: "src/img/anime_body_curvy.jpg" },
       {
         id: "Normal",
         label: "Normal",
-        imgSrc: "src/img/anime_body_normal.png",
+        imgSrc: "src/img/anime_body_normal.jpg",
       },
-      { id: "Slim", label: "Slim", imgSrc: "src/img/anime_body_slim.png" },
+      { id: "Slim", label: "Slim", imgSrc: "src/img/anime_body_slim.jpg" },
     ],
     bodyVideo: {
       Sporty: "src/video/anime_body_sporty.mp4",
@@ -126,21 +126,21 @@ const quizData = {
       Slim: "src/video/anime_body_slim.mp4",
     },
     breast: [
-      { id: "Big", label: "Big", imgSrc: "src/img/anime_breasts_big.png" },
+      { id: "Big", label: "Big", imgSrc: "src/img/anime_breasts_big.jpg" },
       {
         id: "Normal",
         label: "Normal",
-        imgSrc: "src/img/anime_breasts_normal.png",
+        imgSrc: "src/img/anime_breasts_normal.jpg",
       },
       {
         id: "Small",
         label: "Small",
-        imgSrc: "src/img/anime_breasts_small.png",
+        imgSrc: "src/img/anime_breasts_small.jpg",
       },
       {
         id: "Very-small",
         label: "Very small",
-        imgSrc: "src/img/anime_breasts_verysmall.png",
+        imgSrc: "src/img/anime_breasts_verysmall.jpg",
       },
     ],
     breastVideo: {
@@ -150,17 +150,17 @@ const quizData = {
       "Very-small": "src/video/anime_breasts_verysmall.mp4",
     },
     butt: [
-      { id: "Big", label: "Big", imgSrc: "src/img/anime_butt_big.png" },
+      { id: "Big", label: "Big", imgSrc: "src/img/anime_butt_big.jpg" },
       {
         id: "Normal",
         label: "Normal",
-        imgSrc: "src/img/anime_butt_normal.png",
+        imgSrc: "src/img/anime_butt_normal.jpg",
       },
-      { id: "Small", label: "Small", imgSrc: "src/img/anime_butt_small.png" },
+      { id: "Small", label: "Small", imgSrc: "src/img/anime_butt_small.jpg" },
       {
         id: "Very-small",
         label: "Very small",
-        imgSrc: "src/img/anime_butt_verysmall.png",
+        imgSrc: "src/img/anime_butt_verysmall.jpg",
       },
     ],
     buttVideo: {
