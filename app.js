@@ -377,6 +377,11 @@ function selectStyle(styleType, cardEl) {
   renderCards("ethnicity-container", data.ethnicity, "selectEthnicity");
   renderCards("body-container", data.body, "selectBody");
 
+  // Preload card images for the selected style only
+  [...data.body, ...data.breast, ...data.butt].forEach((i) =>
+    _preloadImg(i.imgSrc),
+  );
+
   document
     .querySelectorAll(".A_Card")
     .forEach((c) => c.classList.remove("A_Card--active"));
@@ -970,6 +975,43 @@ async function startScreen10Animations() {
   goToScreen(11);
 }
 
+// ── Rolling Preload ─────────────────────────────────────────────────────────
+const _preloadedSrcs = new Set();
+
+function _preloadImg(src) {
+  if (!src || _preloadedSrcs.has(src)) return;
+  _preloadedSrcs.add(src);
+  const img = new Image();
+  img.src = src;
+}
+
+function _preloadVideo(src) {
+  if (!src || _preloadedSrcs.has(src)) return;
+  _preloadedSrcs.add(src);
+  const v = document.createElement("video");
+  v.preload = "metadata";
+  v.muted = true;
+  v.src = src;
+}
+
+function _preloadAudio(src) {
+  if (!src || _preloadedSrcs.has(src)) return;
+  _preloadedSrcs.add(src);
+  const a = new Audio();
+  a.preload = "metadata";
+  a.src = src;
+}
+
+function preloadForScreen(n) {
+  switch (n) {
+    case 3:
+      // Voice audio samples
+      voiceData.forEach((v) => _preloadAudio(v.audioSrc));
+      break;
+  }
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function updateScreen() {
   let hash = window.location.hash || "#screen-1";
 
@@ -988,6 +1030,7 @@ function updateScreen() {
 
     const screenNumber = parseInt(hash.replace("#screen-", ""), 10);
     updateTopSpace(screenNumber);
+    preloadForScreen(screenNumber + 1);
 
     if (screenNumber === 3) renderVoiceCards();
     if (screenNumber === 4)
@@ -1206,15 +1249,4 @@ window.addEventListener("load", () => {
   }
 
   updateScreen();
-
-  // Preload all card images while user is on screen 1
-  const allCardImages = Object.values(quizData).flatMap((style) => [
-    ...style.body.map((i) => i.imgSrc),
-    ...style.breast.map((i) => i.imgSrc),
-    ...style.butt.map((i) => i.imgSrc),
-  ]);
-  allCardImages.forEach((src) => {
-    const img = new Image();
-    img.src = src;
-  });
 });
